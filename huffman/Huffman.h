@@ -40,24 +40,13 @@ private:
             this->left->search(code_map, code_left);
         }
 
-        void delete_node()
-        {
-            if (this->left)
-            {
-                this->left->delete_node();
-            }
-            if (this->right)
-            {
-                this->right->delete_node();
-            }
-            delete this;
-        }
-
         Node *left;
         Node *right;
         std::size_t freq;
         std::string simbol;
     };
+
+    void delete_node(Node *n);
 
     Node *root;
     Node *cursor;

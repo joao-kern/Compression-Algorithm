@@ -15,7 +15,10 @@ Huffman::Huffman(std::vector<std::tuple<std::size_t, std::string>> &simbols)
 
 Huffman::~Huffman()
 {
-    root->delete_node();
+    if (root)
+    {
+        delete_node(root);
+    }
 }
 
 void Huffman::create_tree(std::vector<std::tuple<std::size_t, std::string>> &simbols)
@@ -57,6 +60,19 @@ void Huffman::generate_map()
 std::vector<bool> Huffman::encode(std::string simbol)
 {
     return code_map[simbol];
+}
+
+void Huffman::delete_node(Node *n)
+{
+    if (n->left)
+    {
+        delete_node(n->left);
+    }
+    if (n->right)
+    {
+        delete_node(n->right);
+    }
+    delete n;
 }
 
 std::string Huffman::decode(bool bit)
