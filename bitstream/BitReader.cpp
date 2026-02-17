@@ -11,6 +11,15 @@ BitReader::BitReader(const std::string path_file)
 
 BitReader::~BitReader()
 {
+    if (file != nullptr)
+    {
+        if (file->is_open())
+        {
+            file->close();
+        }
+        delete file;
+        file = nullptr;
+    }
 }
 
 void BitReader::read_byte()
