@@ -9,6 +9,7 @@ Huffman::Huffman(std::vector<std::tuple<std::size_t, std::string>> &simbols)
 {
     root = nullptr;
     size = 0;
+    current_simbol = "";
     create_tree(simbols);
     generate_map();
 }
@@ -75,9 +76,8 @@ void Huffman::delete_node(Node *n)
     delete n;
 }
 
-std::string Huffman::decode(bool bit)
+bool Huffman::decode(bool bit)
 {
-    std::size_t i = 0;
 
     if (bit)
     {
@@ -87,14 +87,18 @@ std::string Huffman::decode(bool bit)
     {
         cursor = cursor->left;
     }
-    i++;
 
     if (cursor->simbol != "")
     {
-        std::string s = cursor->simbol;
+        current_simbol = cursor->simbol;
         cursor = root;
-        return s;
+        return true;
     }
 
-    return cursor->simbol;
+    return false;
+}
+
+std::string Huffman::get_current_simbol()
+{
+    return current_simbol;
 }

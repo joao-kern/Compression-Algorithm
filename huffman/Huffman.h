@@ -12,7 +12,8 @@ public:
     ~Huffman();
 
     std::vector<bool> encode(std::string simbol);
-    std::string decode(bool bit);
+    bool decode(bool bit);
+    std::string get_current_simbol();
 
 private:
     void create_tree(std::vector<std::tuple<std::size_t, std::string>> &simbols);
@@ -52,4 +53,5 @@ private:
     Node *cursor;
     std::unordered_map<std::string, std::vector<bool>> code_map;
     size_t size;
+    std::string current_simbol;
 };
