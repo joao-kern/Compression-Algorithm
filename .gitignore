@@ -36,6 +36,10 @@
 *.exe
 *.out
 *.app
+run
+
+# Test files
+*.bin
 
 # debug information files
 *.dwo
