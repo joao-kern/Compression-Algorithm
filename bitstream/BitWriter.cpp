@@ -40,7 +40,7 @@ void BitWriter::write_bytes(char *data, std::size_t size)
 {
     if (file->is_open())
     {
-        file->write(reinterpret_cast<char *>(&data), size);
+        file->write(data, size);
     }
     else
     {
