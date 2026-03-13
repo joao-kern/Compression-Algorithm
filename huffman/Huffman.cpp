@@ -41,8 +41,8 @@ void Huffman::create_tree(std::array<std::size_t, 256> &freq_simbols)
     while (Nodes.size() > 1)
     {
         std::sort(Nodes.begin(), Nodes.end(), [](const Node *a, const Node *b)
-                  { return a->freq <= b->freq; });
-        Node *father = new Node(Nodes[i]->freq + Nodes[i + 1]->freq, 0, false);
+                  { return a->freq < b->freq; });
+        Node *father = new Node(0, Nodes[i]->freq + Nodes[i + 1]->freq, false);
         father->right = Nodes[i];
         father->left = Nodes[i + 1];
         Nodes.erase(Nodes.begin());
