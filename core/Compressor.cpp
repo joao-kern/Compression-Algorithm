@@ -19,8 +19,7 @@ Compressor::Compressor(const fs::path path_file)
 
     if (!file->is_open())
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
-        return;
+        throw std::runtime_error("File was not opened correctly: " + path_file.string());
     }
 
     format = new Format;

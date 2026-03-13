@@ -8,7 +8,7 @@ BitReader::BitReader(const std::string path_file)
 
     if (!file->is_open())
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
+        throw std::runtime_error("File was not opened correctly: " + path_file);
     }
 
     file->seekg(0, std::ios::end);
@@ -41,7 +41,7 @@ void BitReader::read_byte()
     }
     else
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
+        throw std::runtime_error("File was not opened correctly");
     }
 }
 
@@ -66,7 +66,7 @@ void BitReader::read_bytes(char *&data, std::size_t size)
     }
     else
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
+        throw std::runtime_error("File was not opened correctly");
     }
 }
 
@@ -80,6 +80,6 @@ void BitReader::close_file()
     }
     else
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
+        throw std::runtime_error("File was not opened correctly");
     }
 }

@@ -8,7 +8,7 @@ BitWriter::BitWriter(const std::string path_file)
     file = new std::ofstream(path_file, std::ios::binary);
     if (!file->is_open())
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*";
+        throw std::runtime_error("File was not opened correctly: " + path_file);
     }
 }
 
@@ -45,7 +45,7 @@ void BitWriter::write_bytes(char *data, std::size_t size)
     }
     else
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*";
+        throw std::runtime_error("File was not opened correctly");
     }
 }
 
@@ -59,7 +59,7 @@ void BitWriter::write_byte()
     }
     else
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*";
+        throw std::runtime_error("File was not opened correctly");
     }
 }
 
@@ -82,6 +82,6 @@ void BitWriter::close_file()
     }
     else
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*";
+        throw std::runtime_error("File was not opened correctly");
     }
 }
