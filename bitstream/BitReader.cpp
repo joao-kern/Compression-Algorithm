@@ -6,7 +6,17 @@ BitReader::BitReader(const std::string path_file)
 {
     file = new std::ifstream(path_file, std::ios::binary);
 
-    file->read(reinterpret_cast<char *>(&total_bits), sizeof(total_bits));
+    if (!file->is_open())
+    {
+        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
+    }
+
+    file->seekg(0, std::ios::end);
+
+    total_bytes = static_cast<uint64_t>(file->tellg());
+
+    file->clear();
+    file->seekg(0, std::ios::beg);
 }
 
 BitReader::~BitReader()
@@ -31,25 +41,33 @@ void BitReader::read_byte()
     }
     else
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*";
+        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
     }
 }
 
-int BitReader::read_bit()
+bool BitReader::read_bit()
 {
-    if (bits_read == total_bits)
-    {
-        return -1;
-    }
     if (cont_buffer == 8 || bits_read == 0)
     {
         read_byte();
     }
-    int bit = (buffer >> (7 - cont_buffer)) & 1;
+    bool bit = (buffer >> (7 - cont_buffer)) & 1;
     cont_buffer++;
     bits_read++;
 
     return bit;
+}
+
+void BitReader::read_bytes(char *&data, std::size_t size)
+{
+    if (file->is_open())
+    {
+        file->read(data, size);
+    }
+    else
+    {
+        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
+    }
 }
 
 void BitReader::close_file()
@@ -62,6 +80,6 @@ void BitReader::close_file()
     }
     else
     {
-        std::cerr << "File was not opened correctly\n*Check the file path*";
+        std::cerr << "File was not opened correctly\n*Check the file path*" << '\n';
     }
 }
